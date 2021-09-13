@@ -22,17 +22,27 @@
                                     <strong>Student Name</strong>
                                     <input type="text" name="name" class="form-control" value="{{ $student->name }}">
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>ID</strong>
-                                    <input type="text" name="student_id" class="form-control" value="{{ $student->student_id }}">
+                                    <strong>Email</strong>
+                                    <input type="text" name="email" class="form-control" value="{{ $student->email }}"></input>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Student ID</strong>
+                                    <input type="text" name="student_id" class="form-control" value="{{ $student->student_id }}"></input>
+                                </div>
+                                <div class="form-group">
+                                    <strong>Faculty</strong>
+                                    <select name="faculty" class="form-control faculty_ajax" id="faculty">
+                                        <option>--- Select Faculty ---</option>
+                                        @foreach ($faculty as $f)
+                                            <option value="{{ $f->id }}">{{ $f->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <strong>Courses</strong>
-                                    <input type="text" name="courses" class="form-control"  value="{{ $student->courses }}">
+                                    <select name="course" class="form-control course_ajax" id="course">
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -47,3 +57,7 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    @include('Student.js.js')
+@endpush

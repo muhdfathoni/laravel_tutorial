@@ -20,17 +20,21 @@
                                 <strong>Student Name</strong>
                                 <input type="text" class="form-control" value="{{ $student->name }}" readonly>
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>ID</strong>
-                                <input type="text" class="form-control" value="{{ $student->student_id }}" readonly>
+                                <strong>Email</strong>
+                                <input type="text" class="form-control" value="{{ $student->email }}" readonly>
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Student ID</strong>
+                                <input type="text" class="form-control"  value="{{ $student->student_id }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <strong>Faculty</strong>
+                                <input type="text" class="form-control"  value="{{ $student->faculty->name }}" readonly>
+                            </div>
                             <div class="form-group">
                                 <strong>Courses</strong>
-                                <input type="text" class="form-control"  value="{{ $student->courses }}" readonly>
+                                <input type="text" class="form-control"  value="{{ $student->course->name }}" readonly>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\{Student, Faculty, Course};
 
 class StudentController extends Controller
 {
@@ -26,7 +26,16 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('Student.create');
+        $faculty = Faculty::all();
+
+        return view('Student.create', compact('faculty'));
+    }
+
+    public function createFaculty(Request $request)
+    {
+        $data=Course::select('name','id')->where('faculty_id',$request->id)->take(100)->get();
+
+        return response()->json($data);
     }
 
     /**
@@ -39,14 +48,18 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'student_id' => 'required|integer',
-            'courses' => 'required'
+            'email' => 'required|email',
+            'student_id' => 'required|min:11',
+            'faculty' => 'required',
+            'course' => 'required'
         ]);
 
         $data = array(
             'name' => $request->name,
+            'email' => $request->email,
             'student_id' => $request->student_id,
-            'courses' => $request->courses
+            'faculty_id' => $request->faculty,
+            'courses_id' => $request->course
         );
 
         Student::create($data);
@@ -73,7 +86,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('Student.update', compact('student'));
+        $faculty = Faculty::all();
+
+        return view('Student.update', compact('student', 'faculty'));
     }
 
     /**
@@ -87,14 +102,18 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'student_id' => 'required|integer',
-            'courses' => 'required'
+            'email' => 'required|email',
+            'student_id' => 'required|min:11',
+            'faculty' => 'required',
+            'course' => 'required'
         ]);
 
         $data = array(
             'name' => $request->name,
+            'email' => $request->email,
             'student_id' => $request->student_id,
-            'courses' => $request->courses
+            'faculty_id' => $request->faculty,
+            'courses_id' => $request->course
         );
 
         $student->update($data);
@@ -113,5 +132,49 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('student.index')->with('danger','Student deleted successfully');
+    }
+
+    public function addFaculty()
+    {
+        return view('Student.faculties.index');
+    }
+
+    public function storeFaculty(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $data = array(
+            'name' => $request->name
+        );
+
+        Faculty::create($data);
+
+        return redirect()->route('student.index')->with('success','Faculty created successfully');
+    }
+
+    public function addCourse()
+    {
+        $faculty = Faculty::all();
+
+        return view('Student.courses.index', compact('faculty'));
+    }
+
+    public function storeCourse(Request $request)
+    {
+        $request->validate([
+            'faculty_id' => 'required',
+            'name' => 'required'
+        ]);
+
+        $data = array(
+            'faculty_id' => $request->faculty_id,
+            'name' => $request->name
+        );
+
+        Course::create($data);
+
+        return redirect()->route('student.index')->with('success','Course created successfully');
     }
 }

@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,6 +30,9 @@
                 @auth
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                     <a class="nav-link" href="{{ route('student.index') }}">Student</a>
+                    <a class="nav-link" href="{{ route('array') }}">Array</a>
+                    <a class="nav-link" href="{{ route('blog.index') }}">Blog</a>
+                    <a class="nav-link" href="{{ route('class.index') }}">Class</a>
                 @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -83,5 +87,6 @@
             @yield('content')
         </main>
     </div>
+    @stack('js')
 </body>
 </html>
