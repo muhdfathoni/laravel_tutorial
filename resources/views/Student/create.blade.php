@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <strong>Faculty</strong>
                                     <select name="faculty" class="form-control faculty_ajax" id="faculty">
-                                        <option>-- Select Faculty --</option>
+                                        <option>--- Select Faculty ---</option>
                                         @foreach ($faculty as $f)
                                             <option value="{{ $f->id }}">{{ $f->name }}</option>
                                         @endforeach
